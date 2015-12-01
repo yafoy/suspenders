@@ -1,4 +1,4 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'suspenders'
+require 'yastart'
 
 require 'minitest/autorun'

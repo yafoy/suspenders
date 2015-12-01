@@ -1,23 +1,23 @@
-# Suspenders
+# Yastart
 
-Suspenders is the base Rails application used at
-[yafoy](https://yafoy.com/). It is heavily inspired from [thoughtbot](https://github.com/thoughtbot/suspenders).
+Yastart is the base Rails application used at
+[yafoy](https://yafoy.com/). It is heavily inspired from the [Suspenders ](https://github.com/thoughtbot/suspenders) gem by thoughbot.
 
 ## Installation
 
-First install the suspenders gem:
+First install the yastart gem:
 
-    gem install suspenders
+    gem install yastart
 
 Then run:
 
-    suspenders projectname
+    yastart projectname
 
 This will create a Rails app in `projectname` using the latest version of Rails.
 
 ## Gemfile
 
-To see the latest and greatest gems, look at Suspenders'
+To see the latest and greatest gems, look at Yastart'
 [Gemfile](templates/Gemfile.erb), which will be appended to the default
 generated projectname/Gemfile.
 
