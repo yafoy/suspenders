@@ -16,6 +16,7 @@ module Yastart
     end
 
     def customize_gemfile
+      #TODO: Send this code to app_builder.rb and call replace_gemfile
       remove_file 'Gemfile'
       template 'Gemfile.erb', 'Gemfile'
     end
