@@ -7,16 +7,16 @@ module Yastart
                  desc: "Configure for selected database (options: #{DATABASES.join("/")})"
 
     def finish_template
-      invoke :yastarts_customization
+      invoke :yastart_customization
       super
     end
 
-    def yastarts_customization
+    def yastart_customization
       invoke :customize_gemfile
     end
 
     def customize_gemfile
-      #TODO: Send this code to app_builder.rb and call replace_gemfile
+      # TODO: Send this code to app_builder.rb and call replace_gemfile
       remove_file 'Gemfile'
       template 'Gemfile.erb', 'Gemfile'
     end
