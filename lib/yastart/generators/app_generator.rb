@@ -21,5 +21,15 @@ module Yastart
       template 'Gemfile.erb', 'Gemfile'
     end
 
+    def customize_generators
+      # insert_into_file 'config/application.rb', after: "class Application < Rails::Application\n" do
+      #   "config.generators do |g|
+      #     g.stylesheets  false
+      #     g.javascripts  false
+      #     g.helper       false
+      #   end\n\n"
+      # end
+    end
+
   end
 end
