@@ -1,1 +1,32 @@
-Customized gem file for yastart
+source 'https://rubygems.org'
+
+ruby "<%= Yastart::RUBY_VERSION %>"
+
+gem 'rails', "<%= Yastart::RAILS_VERSION %>"
+gem 'simple_form', '~> 3.1.0'
+gem 'nested_form'
+gem 'rails_bootstrap_helper', '~> 1.0.1', github: 'olimart/rails_bootstrap_helper', branch: 'bs3.1'
+gem 'tabs_on_rails', '~> 2.1.1'
+gem 'thin'
+gem 'figaro', '~> 1.1.0', github: 'laserlemon/figaro'
+gem 'six'
+gem 'pg'
+gem 'sorcery', '~> 0.9.0'
+
+group :development, :test do
+  gem 'ffaker'
+  gem 'hirb'
+  gem 'spring'
+end
+
+group :development do
+  gem 'rack-mini-profiler'
+  gem 'letter_opener'
+  gem 'better_errors'
+end
+
+group :production do
+  gem 'exception_notification', '~> 4.0.0'
+  gem 'unicorn'
+  gem 'rails_12factor'
+end
