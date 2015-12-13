@@ -20,36 +20,45 @@ module Yastart
 
     def yastart_customization
       invoke :customize_gemfile
-      invoke :customize_locals_file
-      invoke :customize_rakefile
+      invoke :customize_locale_file
+      invoke :customize_rake_tasks
       invoke :configure_app
       invoke :setup_gitignore
       invoke :generate_user_model
       invoke :generate_public_controller
       invoke :generate_admin_controller
+      invoke :configure_views
       invoke :init_git
+      invoke :outro
     end
 
     def customize_gemfile
       build :replace_gemfile
-      build :set_ruby_to_version_being_used
       bundle_command 'install'
       build :configure_simple_form
     end
 
-    def customize_rakefile
-      build :replace_rakefile
+    def customize_rake_tasks
+      build :sample_data_rake_task
     end
 
-    def customize_locals_file
-      build :replace_locals_file
+    def customize_locale_file
+      build :replace_english_locale_file
     end
 
     def configure_app
       build :configure_generators
       build :sample_data_file
       build :copy_application_yml
-      build :activate_robots
+      build :configure_robots_file
+    end
+
+    def configure_views
+      build :create_partials_directory
+      build :copy_header
+      build :copy_footer
+      build :copy_flash
+      build :copy_application_layout
     end
 
     def setup_gitignore
@@ -95,9 +104,8 @@ module Yastart
 
     protected
 
-    def get_builder_class
-      Yastart::AppBuilder
-    end
-
+      def get_builder_class
+        Yastart::AppBuilder
+      end
   end
 end

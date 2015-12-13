@@ -1,0 +1,17 @@
+@include "variables";
+
+/* Helpers */
+.fr { float: right; }
+
+
+/* Components */
+.label,
+.status { text-transform: uppercase; }
+
+
+/* Background Colors */
+.bg-primary { background-color: $blue; }
+.bg-info { background-color: $grey; }
+.bg-danger { background-color: $red; }
+.bg-success { background-color: $green; }
+.bg-warning { background-color: $orange; }

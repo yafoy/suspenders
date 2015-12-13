@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.executables = ['yastart']
 
-  spec.add_dependency 'bitters', '~> 1.1.0'
   spec.add_dependency 'rails', Yastart::RAILS_VERSION
 
   spec.add_development_dependency "bundler", "~> 1.10"
