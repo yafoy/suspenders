@@ -28,8 +28,9 @@ module Yastart
       invoke :generate_public_controller
       invoke :generate_admin_controller
       invoke :configure_views
+      invoke :config_production_env
       invoke :init_git
-      invoke :outro
+      invoke :all_set_up
     end
 
     def customize_gemfile
@@ -67,8 +68,8 @@ module Yastart
 
     def generate_user_model
       if yes? 'Do you need users?(y/N)'
-        #build :insert_into_gemfile, "\n"
         build :create_user_model
+        build :sorcery_test_helper
         invoke :generate_mailer
       end
     end
@@ -98,14 +99,23 @@ module Yastart
       end
     end
 
+    def config_production_env
+      build :config_production, app_name
+    end
+
+
     def init_git
       build :init_git
     end
 
+    def all_set_up
+      build :outro
+    end
+
     protected
 
-      def get_builder_class
-        Yastart::AppBuilder
-      end
+    def get_builder_class
+      Yastart::AppBuilder
+    end
   end
 end
