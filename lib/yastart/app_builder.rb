@@ -25,9 +25,9 @@ module Yastart
       RUBY
 
       insert_into_file(
-          'config/application.rb',
-          config,
-          after: "class Application < Rails::Application\n")
+        'config/application.rb',
+        config,
+        after: "class Application < Rails::Application\n")
     end
 
     def sample_data_rake_task
@@ -113,9 +113,9 @@ module Yastart
       RUBY
 
       insert_into_file(
-          "config/routes.rb",
-          config,
-          after: "Rails.application.routes.draw do\n")
+        "config/routes.rb",
+        config,
+        after: "Rails.application.routes.draw do\n")
     end
 
     def create_admin_controller(name)
@@ -141,9 +141,9 @@ module Yastart
       RUBY
 
       insert_into_file(
-          "app/controllers/#{name}/base_controller.rb",
-          config,
-          after: "#{name.camelcase}::BaseController < ApplicationController\n")
+        "app/controllers/#{name}/base_controller.rb",
+        config,
+        after: "#{name.camelcase}::BaseController < ApplicationController\n")
     end
 
     def config_production(name)
@@ -151,30 +151,30 @@ module Yastart
       config = <<-RUBY
         Rails.application.routes.default_url_options[:host] = ENV['DOMAIN']
 
-          config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
-          config.action_mailer.asset_host = ENV['HOST']
-          config.action_mailer.delivery_method = :smtp
+        config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
+        config.action_mailer.asset_host = ENV['HOST']
+        config.action_mailer.delivery_method = :smtp
 
-          config.action_mailer.smtp_settings = {
-            :address              => ENV['SMTP_HOST'],
-            :port                 => ENV['SMTP_PORT'],
-            :user_name            => ENV['SMTP_USERNAME'],
-            :password             => ENV['SMTP_PASSWORD']
-          }
+        config.action_mailer.smtp_settings = {
+          :address              => ENV['SMTP_HOST'],
+          :port                 => ENV['SMTP_PORT'],
+          :user_name            => ENV['SMTP_USERNAME'],
+          :password             => ENV['SMTP_PASSWORD']
+        }
 
-          # Exceptions handling
-          config.middleware.use ExceptionNotification::Rack,
-          :email => {
-            :email_prefix         => "[Exception] ",
-            :sender_address       => %{"[#{name}] Exception Notifier" <#{default_email}>},
-            :exception_recipients => ENV['ADMIN_EMAIL']
-          }
+        # Exceptions handling
+        config.middleware.use ExceptionNotification::Rack,
+        :email => {
+          :email_prefix         => "[Exception] ",
+          :sender_address       => %{"[#{name}] Exception Notifier" <#{default_email}>},
+          :exception_recipients => ENV['ADMIN_EMAIL']
+        }
       RUBY
 
       insert_into_file(
-          "config/environments/production.rb",
-          config,
-          after: "config.active_record.dump_schema_after_migration = false\n"
+        "config/environments/production.rb",
+        config,
+        after: "config.active_record.dump_schema_after_migration = false\n"
       )
     end
 
