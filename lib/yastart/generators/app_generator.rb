@@ -48,10 +48,13 @@ module Yastart
     end
 
     def configure_app
+      build :replace_application_helper
       build :configure_generators
       build :sample_data_file
       build :copy_application_yml
       build :configure_robots_file
+      build :copy_seeds
+      build :copy_bundler_audit
     end
 
     def configure_views
@@ -69,16 +72,14 @@ module Yastart
     def generate_user_model
       if yes? 'Do you need users?(y/N)'
         build :create_user_model
-        build :sorcery_test_helper
-        invoke :generate_mailer
-      end
-    end
-
-    def generate_mailer
-      if yes? 'Do you need a mailer?(y/N)'
-        name = ask('What should it be called? [user_mailer]').underscore
-        name = 'user_mailer' if name.blank?
-        build :create_mailer, name
+        build :test_helper, 'sorcery_test_helper.rb'
+        if yes? 'Do you need a mailer?(y/N)'
+          name = ask('What should it be called? [user_mailer]').underscore
+          name = 'user_mailer' if name.blank?
+          build :create_mailer, name
+        end
+      else
+        build :test_helper, 'test_helper.rb'
       end
     end
 

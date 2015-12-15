@@ -11,8 +11,9 @@ module Yastart
     end
 
     def replace_english_locale_file
-      remove_file "config/locales/en.yml"
-      copy_file "en.yml", "config/locales/en.yml"
+      # remove_file "config/locales/en.yml"
+      # copy_file "en.yml.erb", "config/locales/en.yml"
+      template 'en.yml.erb', 'config/locales/en.yml'
     end
 
     def configure_generators
@@ -38,6 +39,20 @@ module Yastart
       copy_file "sample_data.rb", "db/sample_data.rb"
     end
 
+    def setup_bundler_audit
+      copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
+      append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
+    end
+
+    def copy_bundler_audit
+      copy_file "bundler_audit.rake", "bundler_audit.rake"
+    end
+
+    def replace_application_helper
+      remove_file "app/helpers/application_helper.rb"
+      copy_file "application_helper.rb", "app/helpers/application_helper.rb"
+    end
+
     def gitignore_files
       append_file '.gitignore', "config/database.yml\n"
       append_file '.gitignore', "public/assets/\n"
@@ -59,8 +74,11 @@ module Yastart
     end
 
     def copy_application_yml
+      remove_file 'config/database.yml'
+      template 'database.yml', 'config/database.yml'
       run "cp config/database.yml config/database.sample.yml"
-      create_file "config/application.yml"
+
+      template 'application.yml', 'config/application.yml'
       run "cp config/application.yml config/application.sample.yml"
     end
 
@@ -178,9 +196,9 @@ module Yastart
       )
     end
 
-    def sorcery_test_helper
+    def test_helper(helper)
       remove_file "test/test_helper.rb"
-      copy_file "test_helper.rb", "test/test_helper.rb"
+      copy_file helper, "test/test_helper.rb"
     end
 
     def setup_spring
@@ -189,6 +207,11 @@ module Yastart
 
     def create_partials_directory
       empty_directory "app/views/application"
+    end
+
+    def copy_seeds
+      remove_file "db/seeds.rb"
+      copy_file 'seeds.rb', "db/seeds.rb"
     end
 
     def copy_header
