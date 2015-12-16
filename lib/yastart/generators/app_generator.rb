@@ -21,6 +21,7 @@ module Yastart
     def yastart_customization
       invoke :customize_gemfile
       invoke :customize_locale_file
+      invoke :config_test_helper
       invoke :customize_rake_tasks
       invoke :configure_app
       invoke :setup_gitignore
@@ -72,17 +73,19 @@ module Yastart
       build :gitignore_files
     end
 
+    def config_test_helper
+      build :copy_test_helper
+    end
+
     def setup_user
       if yes? 'Do you need users? (y/N)'
         build :create_user
-        build :test_helper, 'sorcery_test_helper.rb'
+        build :sorcery_test_helper
         if yes? 'Do you need a mailer?(y/N)'
           name = ask('What should it be called? [user_mailer]').underscore
           name = 'user_mailer' if name.blank?
           build :create_mailer, name
         end
-      else
-        build :test_helper, 'test_helper.rb'
       end
     end
 

@@ -77,8 +77,6 @@ module Yastart
     end
 
     def copy_application_yml
-      remove_file 'config/database.yml'
-      template 'database.yml', 'config/database.yml'
       run "cp config/database.yml config/database.sample.yml"
 
       template 'application.yml', 'config/application.yml'
@@ -215,9 +213,13 @@ module Yastart
       )
     end
 
-    def test_helper(helper)
+    def copy_test_helper
+      copy_file 'test_helper.rb', 'test/test_helper.rb'
+    end
+
+    def sorcery_test_helper
       remove_file "test/test_helper.rb"
-      copy_file helper, "test/test_helper.rb"
+      copy_file 'sorcery_test_helper.rb', 'test/test_helper.rb'
     end
 
     def setup_spring
