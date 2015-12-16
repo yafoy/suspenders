@@ -30,6 +30,7 @@ module Yastart
       invoke :generate_api
       invoke :configure_views
       invoke :config_production_env
+      invoke :config_development
       invoke :init_git
       invoke :all_set_up
     end
@@ -49,6 +50,7 @@ module Yastart
     end
 
     def configure_app
+      build :rename_application_stylesheet
       build :replace_application_helper
       build :configure_generators
       build :sample_data_file
@@ -93,7 +95,7 @@ module Yastart
     end
 
     def generate_admin_controller
-      if yes? 'Do you want to generate an admin controller? (Y/n)'
+      if yes? 'Do you want to generate an admin controller? (y/N)'
         name = ask('What should it be called? [admin]').underscore
         name = 'admin' if name.blank?
         build :create_admin_controller, name
@@ -102,7 +104,7 @@ module Yastart
     end
 
     def generate_api
-      if yes? 'Do you want to scaffold API base? (Y/n)'
+      if yes? 'Do you want to scaffold API base? (y/N)'
         build :add_api_gems
         build :create_api_controller
         build :configure_api_routes
@@ -115,6 +117,9 @@ module Yastart
       build :config_production, app_name
     end
 
+    def config_development
+      build :config_development_env
+    end
 
     def init_git
       build :init_git

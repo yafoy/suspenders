@@ -10,10 +10,13 @@ module Yastart
       template 'Gemfile.erb', 'Gemfile'
     end
 
+    def rename_application_stylesheet
+      File.rename 'app/assets/stylesheets/application.css', 'app/assets/stylesheets/application.scss'
+    end
+
     def replace_english_locale_file
-      # remove_file "config/locales/en.yml"
-      # copy_file "en.yml.erb", "config/locales/en.yml"
-      template 'en.yml.erb', 'config/locales/en.yml'
+      remove_file "config/locales/en.yml"
+      copy_file "en.yml.erb", "config/locales/en.yml"
     end
 
     def configure_generators
@@ -162,6 +165,22 @@ module Yastart
         "app/controllers/#{name}/base_controller.rb",
         config,
         after: "#{name.camelcase}::BaseController < ApplicationController\n")
+    end
+
+    def config_development_env
+      config = <<-RUBY
+        config.action_mailer.delivery_method = :letter_opener
+        config.action_mailer.default_url_options = { host: 'localhost', port: '5000' }
+        config.action_mailer.asset_host = 'http://localhost:5000'
+
+        Rails.application.routes.default_url_options[:host] = 'localhost:5000'
+      RUBY
+
+      insert_into_file(
+        "config/environments/development.rb",
+        config,
+        after: "config.assets.raise_runtime_errors = true\n"
+      )
     end
 
     def config_production(name)
