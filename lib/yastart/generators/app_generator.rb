@@ -24,9 +24,10 @@ module Yastart
       invoke :customize_rake_tasks
       invoke :configure_app
       invoke :setup_gitignore
-      invoke :generate_user_model
+      invoke :setup_user
       invoke :generate_public_controller
       invoke :generate_admin_controller
+      invoke :generate_api
       invoke :configure_views
       invoke :config_production_env
       invoke :init_git
@@ -66,8 +67,8 @@ module Yastart
       build :gitignore_files
     end
 
-    def generate_user_model
-      if yes? 'Do you need users?(y/N)'
+    def setup_user
+      if yes? 'Do you need users? (y/N)'
         build :create_user_model
         build :sorcery_test_helper
         invoke :generate_mailer
@@ -75,7 +76,7 @@ module Yastart
     end
 
     def generate_mailer
-      if yes? 'Do you need a mailer?(y/N)'
+      if yes? 'Do you need a mailer? (y/N)'
         name = ask('What should it be called? [user_mailer]').underscore
         name = 'user_mailer' if name.blank?
         build :create_mailer, name
@@ -83,7 +84,7 @@ module Yastart
     end
 
     def generate_public_controller
-      if yes? 'Do you want to generate a public controller?(y/N)'
+      if yes? 'Do you want to generate a public controller? (y/N)'
         name = ask('What should it be called? [pages]').underscore
         name = 'pages' if name.blank?
         build :create_public_controller, name
@@ -91,11 +92,21 @@ module Yastart
     end
 
     def generate_admin_controller
-      if yes? 'Do you want to generate an admin controller?(Y/n)'
+      if yes? 'Do you want to generate an admin controller? (Y/n)'
         name = ask('What should it be called? [admin]').underscore
         name = 'admin' if name.blank?
         build :create_admin_controller, name
         build :config_admin_controller, name
+      end
+    end
+
+    def generate_api
+      if yes? 'Do you want to scaffold API base? (Y/n)'
+        build :add_api_gems
+        build :create_api_controller
+        build :configure_api_routes
+        build :configure_api_settings
+        build :create_api_views
       end
     end
 

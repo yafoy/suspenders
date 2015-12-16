@@ -88,9 +88,9 @@ module Yastart
       RUBY
 
       insert_into_file(
-          "config/routes.rb",
-          config,
-          after: "Rails.application.routes.draw do\n")
+        "config/routes.rb",
+        config,
+        after: "Rails.application.routes.draw do\n")
 
       bundle_command "exec rails generate sorcery:install remember_me reset_password"
     end
@@ -206,6 +206,58 @@ module Yastart
     def copy_application_layout
       remove_file "app/views/layouts/application.html.erb"
       copy_file "application.html.erb", "app/views/application/application.html.erb"
+    end
+
+    def add_api_gems
+      insert_into_file(
+        "Gemfile",
+        "gem 'rack-cors', require: 'rack/cors'"
+      )
+    end
+
+    def create_api_controller
+      empty_directory "app/controllers/api"
+      empty_directory "app/controllers/api/v1"
+      copy_file "api_base_controller.rb", "app/controllers/api/base_controller.rb"
+    end
+
+    def configure_api_routes
+      config = <<-RUBY
+        # API ROUTES
+        # ----------------------------------------------------------------------------
+        namespace :api, defaults: {format: 'json'} do
+          scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+            resources :orders, only: [:create]
+          end
+        end
+      RUBY
+
+      insert_into_file(
+        "config/routes.rb",
+        config,
+        after: "Rails.application.routes.draw do\n")
+    end
+
+    def configure_api_settings
+      config = <<-RUBY
+        config.middleware.use Rack::Cors, logger: (-> { Rails.logger }) do
+          allow do
+            origins '*'
+            resource '/api/*', headers: :any,
+              methods: [:get, :post, :options], credentials: true, max_age: 0
+          end
+        end
+      RUBY
+
+      insert_into_file(
+        "config/application.rb",
+        config,
+        after: "# config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]\n\n")
+    end
+
+    def create_api_views
+      empty_directory "app/views/api"
+      empty_directory "app/views/api/v1"
     end
 
     def init_git
