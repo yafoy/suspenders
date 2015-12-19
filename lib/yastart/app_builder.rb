@@ -47,10 +47,6 @@ module Yastart
       append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
     end
 
-    def copy_bundler_audit
-      copy_file "bundler_audit.rake", "bundler_audit.rake"
-    end
-
     def replace_application_helper
       remove_file "app/helpers/application_helper.rb"
       copy_file "application_helper.rb", "app/helpers/application_helper.rb"

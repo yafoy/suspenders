@@ -58,7 +58,7 @@ module Yastart
       build :copy_application_yml
       build :configure_robots_file
       build :copy_seeds
-      build :copy_bundler_audit
+      build :setup_bundler_audit
     end
 
     def configure_views
