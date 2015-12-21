@@ -4,21 +4,21 @@ $space-2: 1rem;
 $space-3: 2rem;
 $space-4: 4rem;
 
-.m1 { margin: $space-1 }
-.mb1 { margin-bottom: $space-1 }
-.mt1 { margin-top: $space-1 }
+.m1 { margin: $space-1; }
+.mb1 { margin-bottom: $space-1; }
+.mt1 { margin-top: $space-1; }
 
-.m2 { margin: $space-2 }
-.mb2 { margin-bottom: $space-2 }
-.mt2 { margin-top: $space-2 }
+.m2 { margin: $space-2; }
+.mb2 { margin-bottom: $space-2; }
+.mt2 { margin-top: $space-2; }
 
-.m3 { margin: $space-3 }
-.mb3 { margin-bottom: $space-3 }
-.mt3 { margin-top: $space-3 }
+.m3 { margin: $space-3; }
+.mb3 { margin-bottom: $space-3; }
+.mt3 { margin-top: $space-3; }
 
-.m4 { margin: $space-4 }
-.mb4 { margin-bottom: $space-4 }
-.mt4 { margin-top: $space-4 }
+.m4 { margin: $space-4; }
+.mb4 { margin-bottom: $space-4; }
+.mt4 { margin-top: $space-4; }
 
 .mx1 { margin-left: $space-1; margin-right: $space-1; }
 .mx2 { margin-left: $space-2; margin-right: $space-2; }
@@ -31,21 +31,21 @@ $space-4: 4rem;
 .my4 { margin-top: $space-4; margin-bottom: $space-4; }
 
 
-.p1 { margin: $space-1 }
-.pb1 { margin-bottom: $space-1 }
-.pt1 { margin-top: $space-1 }
+.p1 { margin: $space-1; }
+.pb1 { margin-bottom: $space-1; }
+.pt1 { margin-top: $space-1; }
 
-.p2 { margin: $space-2 }
-.pb2 { margin-bottom: $space-2 }
-.pt2 { margin-top: $space-2 }
+.p2 { margin: $space-2; }
+.pb2 { margin-bottom: $space-2; }
+.pt2 { margin-top: $space-2; }
 
-.p3 { margin: $space-3 }
-.pb3 { margin-bottom: $space-3 }
+.p3 { margin: $space-3; }
+.pb3 { margin-bottom: $space-3; }
 .pt3 { margin-top: $space-3 }
 
-.p4 { margin: $space-4 }
-.pb4 { margin-bottom: $space-4 }
-.pt4 { margin-top: $space-4 }
+.p4 { margin: $space-4; }
+.pb4 { margin-bottom: $space-4; }
+.pt4 { margin-top: $space-4; }
 
 .px1 { margin-left: $space-1; margin-right: $space-1; }
 .px2 { margin-left: $space-2; margin-right: $space-2; }
@@ -66,9 +66,9 @@ $h4: 1rem;
 $h5: .875rem;
 $h6: .75rem;
 
-h1 { font-size: $h1) }
-h2 { font-size: $h2) }
-h3 { font-size: $h3) }
-h4 { font-size: $h4) }
-h5 { font-size: $h5) }
-h6 { font-size: $h6) }
+h1 { font-size: $h1; }
+h2 { font-size: $h2; }
+h3 { font-size: $h3; }
+h4 { font-size: $h4; }
+h5 { font-size: $h5; }
+h6 { font-size: $h6; }

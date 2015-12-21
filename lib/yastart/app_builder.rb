@@ -113,9 +113,10 @@ module Yastart
     def create_mailer(name)
       bundle_command "exec rails generate mailer #{name}"
       remove_file "views/layouts/mailer.text.erb"
-      copy_file "mailer.html.erb", "views/layouts/mailer.html.erb"
+      copy_file "mailer.html.erb", "app/views/layouts/mailer.html.erb"
       insert_into_file "app/mailers/#{name}.rb", before: "default from: 'from@example.com'" do
-        "\n layout 'email_template'"
+        "\ndefault reply_to: ENV['DEFAULT_CONTACT_EMAIL']
+        layout 'mailer'"
       end
     end
 
@@ -246,6 +247,13 @@ module Yastart
     def copy_application_layout
       remove_file "app/views/layouts/application.html.erb"
       copy_file "application.html.erb", "app/views/application/application.html.erb"
+    end
+
+    def copy_css_files
+      copy_file  "variables.scss", "app/assets/stylesheets/variables.scss"
+      copy_file  "components.scss", "app/assets/stylesheets/components.scss"
+      copy_file  "layout.scss", "app/assets/stylesheets/layout.scss"
+      copy_file  "graviton.scss", "app/assets/stylesheets/graviton.scss"
     end
 
     def add_api_gems

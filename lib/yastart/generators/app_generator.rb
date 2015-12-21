@@ -67,6 +67,7 @@ module Yastart
       build :copy_footer
       build :copy_flash
       build :copy_application_layout
+      build :copy_css_files
     end
 
     def setup_gitignore
